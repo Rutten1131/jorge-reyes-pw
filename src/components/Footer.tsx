@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
@@ -20,6 +21,12 @@ import { usePathname } from 'next/navigation';
 
 export default function Footer() {
   const pathname = usePathname();
+
+  const [currentYear, setCurrentYear] = useState(2026);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   if (pathname?.startsWith('/admin')) {
     return null;
@@ -108,7 +115,7 @@ export default function Footer() {
 
         <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-white/30 text-xs">
           <div className="text-center md:text-left space-y-1">
-            <p>© 2026 JORGE REYES - MOVIMIENTO ACCIÓN SOCIAL SOLIDARIA 115</p>
+            <p>© {currentYear} JORGE REYES - MOVIMIENTO ACCIÓN SOCIAL SOLIDARIA 115</p>
             <p>
               Diseñado por{' '}
               <a
@@ -119,7 +126,7 @@ export default function Footer() {
               >
                 Cesar Reyes
               </a>{' '}
-              | Jorge Reyes 2026
+              | Jorge Reyes {currentYear}
             </p>
           </div>
           <p className="mt-4 md:mt-0 font-barlow tracking-widest uppercase">SÉ ESCUCHAR, SÉ CUMPLIR</p>
