@@ -51,10 +51,10 @@ export const metadata: Metadata = {
     siteName: 'Jorge Reyes 2026',
     images: [
       {
-        url: '/images/Jorge_blog.webp',
+        url: '/images/jorge-hero.webp',
         width: 1200,
         height: 630,
-        alt: 'Jorge Reyes - Loja Autosuficiente',
+        alt: 'Jorge Reyes - Candidato Alcalde Loja 2026',
       },
     ],
     locale: 'es_EC',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/images/Jorge_blog.webp'],
+    images: ['/images/jorge-hero.webp'],
   },
   verification: {
     google: 'acULP0PoyU2IbqabSzCuDgA18IdIdutuBwFQDmINFPg',
