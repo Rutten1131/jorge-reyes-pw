@@ -107,8 +107,22 @@ export default function Footer() {
         </div>
 
         <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-white/30 text-xs">
-          <p>© 2026 JORGE REYES - MOVIMIENTO ACCIÓN SOCIAL SOLIDARIA 115</p>
-          <p className="mt-2 md:mt-0 font-barlow tracking-widest">SÉ ESCUCHAR, SÉ CUMPLIR</p>
+          <div className="text-center md:text-left space-y-1">
+            <p>© 2026 JORGE REYES - MOVIMIENTO ACCIÓN SOCIAL SOLIDARIA 115</p>
+            <p>
+              Diseñado por{' '}
+              <a
+                href="https://www.cesarreyesjaramillo.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/50 hover:text-acento transition-colors underline"
+              >
+                Cesar Reyes
+              </a>{' '}
+              | Jorge Reyes 2026
+            </p>
+          </div>
+          <p className="mt-4 md:mt-0 font-barlow tracking-widest uppercase">SÉ ESCUCHAR, SÉ CUMPLIR</p>
         </div>
       </div>
     </footer>

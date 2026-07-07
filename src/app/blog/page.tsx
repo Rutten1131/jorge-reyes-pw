@@ -6,6 +6,26 @@ export const metadata = {
   title: 'Blog | Noticias y Propuestas para Loja 2026 — Jorge Reyes MASS 115',
   description: 'Explora la visión y propuestas de Jorge Reyes para Loja 2026. Defensa técnica, historia y conexión humana para el progreso lojano.',
   keywords: 'Cómo participar política Loja, Movimiento MASS 115 Loja qué es, verdad Mercado Mayorista Loja, propuestas Jorge Reyes',
+  openGraph: {
+    title: 'Blog | Noticias y Propuestas para Loja 2026 — Jorge Reyes MASS 115',
+    description: 'Explora la visión y propuestas de Jorge Reyes para Loja 2026. Defensa técnica, historia y conexión humana para el progreso lojano.',
+    url: 'https://www.jorgereyesjaramillo.com/blog',
+    type: 'website',
+    images: [
+      {
+        url: '/images/Jorge_blog.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Jorge Reyes - Blog Oficial',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog | Noticias y Propuestas para Loja 2026 — Jorge Reyes MASS 115',
+    description: 'Explora la visión y propuestas de Jorge Reyes para Loja 2026. Defensa técnica, historia y conexión humana para el progreso lojano.',
+    images: ['/images/Jorge_blog.webp'],
+  },
 };
 
 export const dynamic = 'force-dynamic';
