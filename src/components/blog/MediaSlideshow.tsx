@@ -176,7 +176,9 @@ export default function MediaSlideshow({ slides, postTitle }: Props) {
       }
       if (fbInfo) {
         const encodedUrl = encodeURIComponent(fbInfo.url);
-        if (fbInfo.isVideo) {
+        const isShareLink = /facebook\.com\/share\//.test(fbInfo.url);
+
+        if (fbInfo.isVideo && !isShareLink) {
           return (
             <iframe
               src={`https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=false&width=560`}
@@ -186,8 +188,7 @@ export default function MediaSlideshow({ slides, postTitle }: Props) {
               title={`Facebook Video - ${slide.filename || postTitle}`}
             />
           );
-        } else {
-          // Facebook Post embed (e.g. share/p/..., posts, permalink, photos)
+        } else if (!isShareLink) {
           return (
             <div className="w-full h-full flex items-center justify-center bg-white overflow-auto p-2">
               <iframe
@@ -198,6 +199,24 @@ export default function MediaSlideshow({ slides, postTitle }: Props) {
                 allowFullScreen
                 title={`Facebook Post - ${slide.filename || postTitle}`}
               />
+            </div>
+          );
+        } else {
+          // Share link — show card with button
+          return (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1877F2] to-[#0d47a1] p-8">
+              <a
+                href={fbInfo.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center text-white no-underline"
+              >
+                <svg className="w-16 h-16 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+                <span className="font-barlow font-bold text-xl tracking-wide uppercase mb-2">Ver publicación</span>
+                <span className="text-white/70 text-sm font-dmsans">Toca para abrir en Facebook</span>
+              </a>
             </div>
           );
         }
