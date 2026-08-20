@@ -131,16 +131,65 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
     }
   };
 
-  const fileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const result = reader.result as string;
-        const base64 = result.split(',')[1];
-        resolve(base64);
+  const compressImageFile = (file: File): Promise<{ base64: string; mime: string }> => {
+    return new Promise((resolve) => {
+      // If it's a video file, don't attempt canvas compression
+      if (!file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result as string;
+          resolve({ base64: result.split(',')[1] || '', mime: file.type });
+        };
+        reader.onerror = () => resolve({ base64: '', mime: file.type });
+        reader.readAsDataURL(file);
+        return;
+      }
+
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        const maxDim = 1600;
+        let { width, height } = img;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+          const base64 = dataUrl.split(',')[1];
+          resolve({ base64, mime: 'image/jpeg' });
+        } else {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = reader.result as string;
+            resolve({ base64: result.split(',')[1] || '', mime: file.type });
+          };
+          reader.onerror = () => resolve({ base64: '', mime: file.type });
+          reader.readAsDataURL(file);
+        }
       };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result as string;
+          resolve({ base64: result.split(',')[1] || '', mime: file.type });
+        };
+        reader.onerror = () => resolve({ base64: '', mime: file.type });
+        reader.readAsDataURL(file);
+      };
+      img.src = url;
     });
   };
 
@@ -153,26 +202,26 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
 
-      if (file.size > 20 * 1024 * 1024) {
-        setError(`"${file.name}" es demasiado grande (max 20MB). Se omitió.`);
+      if (file.size > 25 * 1024 * 1024) {
+        setError(`"${file.name}" es demasiado grande (max 25MB). Se omitió.`);
         continue;
       }
 
-      const base64 = await fileToBase64(file);
+      const { base64, mime } = await compressImageFile(file);
       const preview = URL.createObjectURL(file);
       const tempId = -(Date.now() + i);
 
       newPending.push({
         id: tempId,
         url: preview,
-        mimeType: file.type,
+        mimeType: mime,
         filename: file.name,
         sortOrder: mediaItems.length + pendingMedia.length + i,
         isVideo: file.type.startsWith('video/'),
         isImage: file.type.startsWith('image/'),
         localPreview: preview,
         localBase64: base64,
-        localMime: file.type,
+        localMime: mime,
         localName: file.name,
       });
 
@@ -194,7 +243,7 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
     }
   };
 
-  // Add video by URL (YouTube, Vimeo, etc.)
+  // Add video or social post by URL (YouTube, Facebook, Instagram, TikTok, etc.)
   const handleAddVideoUrl = () => {
     const url = videoUrlInput.trim();
     if (!url) return;
@@ -249,16 +298,44 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
     const newContent = text.substring(0, start) + before + replacement + after + text.substring(end);
     setContent(newContent);
     
-    // Restore cursor position after React re-render
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       textarea.focus();
-      const cursorPos = start + before.length + replacement.length + after.length;
       textarea.setSelectionRange(
-        selected ? cursorPos : start + before.length,
-        selected ? cursorPos : start + before.length + replacement.length
+        start + before.length,
+        start + before.length + replacement.length
       );
-    });
+    }, 0);
   }, [content]);
+
+  // Insert a heading block
+  const insertHeading = (level: number) => {
+    const prefix = '#'.repeat(level) + ' ';
+    insertMarkdown(prefix, '', 'Título');
+  };
+
+  // Insert a list item
+  const insertList = (ordered: boolean = false) => {
+    const prefix = ordered ? '1. ' : '- ';
+    insertMarkdown(prefix, '', 'Elemento de lista');
+  };
+
+  // Insert quote
+  const insertQuote = () => {
+    insertMarkdown('> ', '', 'Cita o frase destacada');
+  };
+
+  // Insert link
+  const insertLink = () => {
+    const url = prompt('Ingresa la URL del enlace:', 'https://');
+    if (url) {
+      insertMarkdown('[', `](${url})`, 'Texto del enlace');
+    }
+  };
+
+  // Insert horizontal rule
+  const insertDivider = () => {
+    insertMarkdown('\n\n---\n\n', '', '');
+  };
 
   const toolbarActions = [
     { icon: 'B', label: 'Negrita', action: () => insertMarkdown('**', '**', 'texto en negrita') },
@@ -269,18 +346,40 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
     { icon: '•', label: 'Lista', action: () => insertMarkdown('\n- ', '\n', 'elemento de lista') },
     { icon: '1.', label: 'Lista numerada', action: () => insertMarkdown('\n1. ', '\n', 'elemento numerado') },
     { icon: '❝', label: 'Cita', action: () => insertMarkdown('\n> ', '\n', 'texto de la cita') },
-    { icon: '🔗', label: 'Enlace', action: () => insertMarkdown('[', '](https://)', 'texto del enlace') },
-    { icon: '—', label: 'Línea separadora', action: () => insertMarkdown('\n\n---\n\n', '', '') },
+    { icon: '🔗', label: 'Enlace', action: () => insertLink() },
+    { icon: '—', label: 'Línea separadora', action: () => insertDivider() },
   ];
 
   const handleSave = async (publish = false) => {
+    setError('');
+    setSuccessMsg('');
     setSaving(true);
-    setError(null);
-    setSuccessMsg(null);
+
+    if (!form.title?.trim()) {
+      setError('El título es requerido');
+      setSaving(false);
+      return;
+    }
+
+    if (!content.trim()) {
+      setError('El contenido es requerido');
+      setSaving(false);
+      return;
+    }
 
     const statusToSave = publish ? 'published' : form.status;
 
     try {
+      // Helper to safely parse JSON or return text error
+      const safeParse = async (res: Response) => {
+        const rawText = await res.text();
+        try {
+          return JSON.parse(rawText);
+        } catch {
+          return { error: rawText || `Error del servidor (HTTP ${res.status})` };
+        }
+      };
+
       // First save the main post record metadata
       const payload: Record<string, any> = {
         title: form.title,
@@ -288,28 +387,12 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
         metadata: { ...form, status: statusToSave },
       };
 
-      // If a pre-existing media is marked as featured / OG, we send the ID to copy it on backend
+      // If a pre-existing media is marked as featured / OG, send the ID to copy it on backend
       if (featuredMediaId && featuredMediaId > 0) {
         payload.featuredMediaId = featuredMediaId;
       }
       if (ogMediaId && ogMediaId > 0) {
         payload.ogMediaId = ogMediaId;
-      }
-
-      // If a pending media is marked as featured, convert it to base64 payload
-      if (featuredLocalId) {
-        const featItem = pendingMedia.find(m => m.id === featuredLocalId);
-        if (featItem) {
-          payload.imageBase64 = featItem.localBase64;
-          payload.imageMime = featItem.localMime;
-        }
-      }
-      if (ogLocalId) {
-        const ogItem = pendingMedia.find(m => m.id === ogLocalId);
-        if (ogItem) {
-          payload.ogImageBase64 = ogItem.localBase64;
-          payload.ogImageMime = ogItem.localMime;
-        }
       }
 
       const url = slug ? `/api/posts/${slug}` : '/api/posts';
@@ -321,12 +404,12 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
         body: JSON.stringify(payload),
       });
 
+      const result = await safeParse(res);
+
       if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || 'Error saving post');
+        throw new Error(result.error || 'Error al guardar el artículo');
       }
 
-      const result = await res.json();
       const savedSlug = result.slug || slug;
 
       // Upload gallery items sequentially
@@ -334,7 +417,7 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
         setUploadingMedia(true);
         for (const media of pendingMedia) {
           if (media.localVideoUrl) {
-            // Video URL entry — no blob data
+            // Video/Social URL entry — no blob data
             const mediaRes = await fetch('/api/media', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -346,7 +429,7 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
               }),
             });
             if (mediaRes.ok) {
-              const uploadedMedia = await mediaRes.json();
+              const uploadedMedia = await safeParse(mediaRes);
               if (featuredLocalId === media.id) {
                 await fetch(`/api/posts/${savedSlug}`, {
                   method: 'PUT',
@@ -376,9 +459,9 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
               }),
             });
 
-            // If this uploaded item was marked as featured/og, let the backend know on second PUT call
+            // If this uploaded item was marked as featured/og, let the backend know
             if (mediaRes.ok) {
-              const uploadedMedia = await mediaRes.json();
+              const uploadedMedia = await safeParse(mediaRes);
               if (featuredLocalId === media.id) {
                 await fetch(`/api/posts/${savedSlug}`, {
                   method: 'PUT',
@@ -593,7 +676,7 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-xs text-gray-400 group-hover:text-purple-500 font-dmsans font-medium transition-colors">Video URL</span>
+              <span className="text-xs text-gray-400 group-hover:text-purple-500 font-dmsans font-medium transition-colors">Video / Red Social</span>
             </button>
           </div>
 
@@ -602,13 +685,13 @@ export default function AdminPostEditor({ slug, onSave, onCancel }: Props) {
             <div className="flex gap-3 items-end bg-purple-50 rounded-xl p-4 border border-purple-200">
               <div className="flex-1">
                 <label className="block text-sm font-dmsans font-medium text-purple-800 mb-1">
-                  URL del video (YouTube, Vimeo, etc.)
+                  Enlace de Video o Publicación (YouTube, Facebook Post/Video, Instagram, TikTok)
                 </label>
                 <input
                   type="url"
                   value={videoUrlInput}
                   onChange={(e) => setVideoUrlInput(e.target.value)}
-                  placeholder="https://www.youtube.com/watch?v=..."
+                  placeholder="Ej: https://www.facebook.com/share/p/19H2eNhVoi/ o https://youtu.be/..."
                   className="w-full border border-purple-300 rounded-lg px-4 py-2 font-dmsans text-sm focus:ring-2 focus:ring-purple-400 focus:border-transparent"
                   onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddVideoUrl())}
                 />

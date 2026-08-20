@@ -40,12 +40,13 @@ function getInstagramCode(url: string): string | null {
   return match ? match[1] : null;
 }
 
-function getFacebookVideoUrl(url: string): string | null {
-  // Matches: facebook.com/share/v/..., facebook.com/watch?v=..., facebook.com/reel/..., fb.watch/...
-  if (url.match(/facebook\.com\/(share\/v|watch|reel|.*\/videos)/) || url.match(/fb\.watch\//)) {
-    return url;
-  }
-  return null;
+function getFacebookInfo(url: string): { isFb: boolean; isVideo: boolean; url: string } | null {
+  if (!url.includes('facebook.com') && !url.includes('fb.watch')) return null;
+  const isVideo = !!(
+    url.match(/facebook\.com\/(share\/v|watch|reel|.*\/videos)/) ||
+    url.match(/fb\.watch\//)
+  );
+  return { isFb: true, isVideo, url };
 }
 
 function getTikTokVideoId(url: string): string | null {
@@ -61,7 +62,7 @@ function getPlatformName(url: string): string | null {
   if (getYouTubeId(url)) return 'YouTube';
   if (getVimeoId(url)) return 'Vimeo';
   if (getInstagramCode(url)) return 'Instagram';
-  if (getFacebookVideoUrl(url)) return 'Facebook';
+  if (getFacebookInfo(url)) return 'Facebook';
   if (getTikTokVideoId(url)) return 'TikTok';
   return null;
 }
@@ -136,7 +137,7 @@ export default function MediaSlideshow({ slides, postTitle }: Props) {
       const ytId = getYouTubeId(slide.videoUrl);
       const vimeoId = getVimeoId(slide.videoUrl);
       const igCode = getInstagramCode(slide.videoUrl);
-      const fbUrl = getFacebookVideoUrl(slide.videoUrl);
+      const fbInfo = getFacebookInfo(slide.videoUrl);
       const tikTokId = getTikTokVideoId(slide.videoUrl);
       const platform = getPlatformName(slide.videoUrl);
 
@@ -173,17 +174,33 @@ export default function MediaSlideshow({ slides, postTitle }: Props) {
           />
         );
       }
-      if (fbUrl) {
-        const encodedUrl = encodeURIComponent(fbUrl);
-        return (
-          <iframe
-            src={`https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=false&width=560`}
-            className="w-full h-full border-0"
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-            allowFullScreen
-            title={`Facebook - ${slide.filename || postTitle}`}
-          />
-        );
+      if (fbInfo) {
+        const encodedUrl = encodeURIComponent(fbInfo.url);
+        if (fbInfo.isVideo) {
+          return (
+            <iframe
+              src={`https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=false&width=560`}
+              className="w-full h-full border-0"
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              allowFullScreen
+              title={`Facebook Video - ${slide.filename || postTitle}`}
+            />
+          );
+        } else {
+          // Facebook Post embed (e.g. share/p/..., posts, permalink, photos)
+          return (
+            <div className="w-full h-full flex items-center justify-center bg-white overflow-auto p-2">
+              <iframe
+                src={`https://www.facebook.com/plugins/post.php?href=${encodedUrl}&show_text=true&width=500`}
+                className="w-full max-w-[500px] h-full border-0"
+                style={{ minHeight: '380px' }}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                allowFullScreen
+                title={`Facebook Post - ${slide.filename || postTitle}`}
+              />
+            </div>
+          );
+        }
       }
       if (tikTokId) {
         // TikTok embeds — for full URLs we use tiktok.com/embed
