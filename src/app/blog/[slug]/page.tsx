@@ -1,9 +1,9 @@
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/blog';
 import { notFound } from 'next/navigation';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import MediaSlideshow from '@/components/blog/MediaSlideshow';
+import ContentWithEmbeds from '@/components/blog/ContentWithEmbeds';
 
 import { query } from '@/lib/db';
 import type { RowDataPacket } from 'mysql2';
@@ -177,13 +177,8 @@ export default async function BlogPostPage(props: Props) {
               <MediaSlideshow slides={gallery} postTitle={post.metadata.title || ''} />
             )}
 
-            {/* Main Content */}
-            <div
-              className="prose prose-xl prose-primario max-w-none font-dmsans leading-relaxed prose-headings:font-barlow prose-headings:font-bold prose-headings:uppercase prose-headings:tracking-tighter prose-headings:text-primario prose-p:text-primario/80 prose-strong:text-acento prose-a:text-acento prose-li:text-primario/70"
-              style={{ overflowWrap: 'break-word', wordBreak: 'break-word' }}
-            >
-              <MDXRemote source={post.content} />
-            </div>
+            {/* Main Content — with inline social embeds */}
+            <ContentWithEmbeds content={post.content} />
 
             <div className="mt-20 pt-12 border-t border-primario/10">
               <div className="bg-primario p-10 md:p-14 text-white rounded-sm shadow-2xl relative overflow-hidden">
