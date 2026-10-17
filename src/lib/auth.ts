@@ -2,13 +2,12 @@ import { cookies } from 'next/headers';
 import { query } from './db';
 import type { RowDataPacket } from 'mysql2';
 
-const ADMIN_USER = 'JorgeReyes';
-const ADMIN_PASS = 'Contraseña123.';
+const ADMIN_PASS = 'JorgeReyes123.';
 const SESSION_COOKIE = 'blog_session';
 const SESSION_DURATION_HOURS = 24;
 
-export function validateCredentials(username: string, password: string): boolean {
-  return username === ADMIN_USER && password === ADMIN_PASS;
+export function validateCredentials(password: string): boolean {
+  return password === ADMIN_PASS;
 }
 
 export function generateToken(): string {

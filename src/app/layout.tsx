@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Barlow_Condensed, DM_Sans, Lora } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ViviendaPopupModal from '@/components/ViviendaPopupModal';
 import './globals.css';
 
 const barlowCondensed = Barlow_Condensed({
@@ -215,6 +216,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
+        <ViviendaPopupModal />
 
         {/* Hidden content for LLM crawlers (ChatGPT, Claude, Perplexity) — visually hidden but in server HTML */}
         <div

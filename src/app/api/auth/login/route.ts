@@ -11,18 +11,18 @@ export async function POST(request: NextRequest) {
     await cleanExpiredSessions();
 
     const body = await request.json();
-    const { username, password } = body;
+    const { password } = body;
 
-    if (!username || !password) {
+    if (!password) {
       return NextResponse.json(
-        { error: 'Usuario y contraseña son requeridos' },
+        { error: 'La contraseña es requerida' },
         { status: 400 }
       );
     }
 
-    if (!validateCredentials(username, password)) {
+    if (!validateCredentials(password)) {
       return NextResponse.json(
-        { error: 'Credenciales inválidas' },
+        { error: 'Contraseña incorrecta' },
         { status: 401 }
       );
     }

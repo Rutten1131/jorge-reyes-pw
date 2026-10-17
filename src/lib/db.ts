@@ -96,4 +96,27 @@ export async function initDatabase(): Promise<void> {
       INDEX idx_expires (expires_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
   `);
+
+  // Table: vivienda_registros (Formulario Plan de Vivienda)
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS vivienda_registros (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      nombres VARCHAR(255) NOT NULL,
+      apellidos VARCHAR(255) NOT NULL,
+      cedula VARCHAR(20) NOT NULL,
+      telefono VARCHAR(50) NOT NULL,
+      email VARCHAR(255) DEFAULT NULL,
+      direccion VARCHAR(500) NOT NULL,
+      barrio VARCHAR(255) NOT NULL,
+      parroquia VARCHAR(255) DEFAULT NULL,
+      num_habitantes INT DEFAULT 1,
+      ingreso_familiar DECIMAL(10, 2) DEFAULT NULL,
+      tiene_discapacidad TINYINT(1) DEFAULT 0,
+      adultos_mayores TINYINT(1) DEFAULT 0,
+      observaciones TEXT,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      INDEX idx_cedula (cedula),
+      INDEX idx_created (created_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+  `);
 }

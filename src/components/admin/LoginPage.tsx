@@ -7,7 +7,6 @@ type Props = {
 };
 
 export default function LoginPage({ onLogin }: Props) {
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -22,7 +21,7 @@ export default function LoginPage({ onLogin }: Props) {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ password }),
       });
 
       const data = await res.json();
@@ -84,29 +83,7 @@ export default function LoginPage({ onLogin }: Props) {
           <div className="space-y-5">
             <div>
               <label className="block text-white/60 text-sm font-dmsans font-medium mb-2 tracking-wide">
-                Usuario
-              </label>
-              <div className="relative">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Ingresa tu usuario"
-                  required
-                  autoComplete="username"
-                  className="w-full bg-white/[0.05] border border-white/10 rounded-xl px-4 py-3.5 pl-12 text-white font-dmsans placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-[#4EC8C8]/50 focus:border-[#4EC8C8]/50 transition-all"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-white/60 text-sm font-dmsans font-medium mb-2 tracking-wide">
-                Contraseña
+                Contraseña de Acceso
               </label>
               <div className="relative">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30">
@@ -120,6 +97,7 @@ export default function LoginPage({ onLogin }: Props) {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Ingresa tu contraseña"
                   required
+                  autoFocus
                   autoComplete="current-password"
                   className="w-full bg-white/[0.05] border border-white/10 rounded-xl px-4 py-3.5 pl-12 pr-12 text-white font-dmsans placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-[#4EC8C8]/50 focus:border-[#4EC8C8]/50 transition-all"
                 />

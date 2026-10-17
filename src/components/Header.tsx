@@ -11,18 +11,7 @@ const navLinks = [
   { name: 'BLOG', href: '/blog' },
 ];
 
-const AguilaLogo = ({ className }: { className?: string }) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z" />
-    {/* Simple eagle-like icon placeholder */}
-  </svg>
-);
-
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
@@ -56,7 +45,16 @@ export default function Header() {
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center group">
-          <AguilaLogo className="w-8 h-8 lg:w-10 lg:h-10 text-acento transition-transform group-hover:scale-110" />
+          <div className="relative w-12 h-10 lg:w-14 lg:h-12 transition-transform duration-300 group-hover:scale-105">
+            <Image
+              src="/imagenes-formulario/JR_BL.png"
+              alt="Jorge Reyes - MASS 115"
+              fill
+              sizes="(max-width: 1024px) 48px, 56px"
+              className="object-contain filter drop-shadow-md"
+              priority
+            />
+          </div>
           <span className="sr-only">Jorge Reyes - MASS 115</span>
         </Link>
 
