@@ -8,6 +8,7 @@ const navLinks = [
   { name: 'INICIO', href: '/' },
   { name: 'SOBRE JORGE', href: '/sobre-jorge' },
   { name: 'PLAN 2026', href: '/plan-2026' },
+  { name: 'VIVIENDA', href: '/plan-vivienda' },
   { name: 'BLOG', href: '/blog' },
 ];
 
@@ -35,12 +36,9 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-primario/80 backdrop-blur-md border-b border-white/10 py-3 shadow-lg' 
-          : 'bg-transparent py-6 lg:bg-transparent lg:py-8'
-      } ${
-        // Always solid on mobile according to brief
-        'max-lg:bg-primario max-lg:py-3'
-      }`}
+          ? 'bg-white/95 backdrop-blur-md border-b border-[#dce7ea] py-3 shadow-md' 
+          : 'bg-gradient-to-b from-[#0e2447]/90 to-transparent py-5 lg:py-6'
+      } max-lg:bg-[#0e2447] max-lg:py-3`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
@@ -51,7 +49,9 @@ export default function Header() {
               alt="Jorge Reyes - MASS 115"
               fill
               sizes="(max-width: 1024px) 48px, 56px"
-              className="object-contain filter drop-shadow-md"
+              className={`object-contain filter drop-shadow-md transition-all duration-300 ${
+                isScrolled ? 'brightness-0 contrast-200 hue-rotate-180 invert lg:filter-none' : ''
+              }`}
               priority
             />
           </div>
@@ -60,16 +60,31 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center space-x-10">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="font-barlow text-sm tracking-widest text-white hover:text-acento transition-colors relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-acento transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`font-heading text-sm font-semibold tracking-wider transition-colors relative group py-1 ${
+                  isScrolled
+                    ? isActive 
+                      ? 'text-[#215196] font-bold' 
+                      : 'text-[#16233a] hover:text-[#479ea9]'
+                    : isActive
+                      ? 'text-[#9ad6de] font-bold'
+                      : 'text-white hover:text-[#9ad6de]'
+                }`}
+              >
+                {link.name}
+                <span
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-[#479ea9] transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Action Button & Toggle */}
@@ -77,7 +92,7 @@ export default function Header() {
           <Link
             href="https://wa.me/593997755478"
             target="_blank"
-            className="font-barlow text-sm tracking-wider border-2 border-acento text-white px-5 py-2 hover:bg-acento hover:text-primario transition-all duration-300 rounded-sm"
+            className="font-heading text-sm font-bold tracking-wider px-5 py-2.5 rounded-sm transition-all duration-300 shadow-md bg-[#479ea9] text-white hover:bg-[#2a7580] hover:scale-105"
           >
             ÚNETE
           </Link>
@@ -102,19 +117,24 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-primario border-t border-white/5 overflow-hidden"
+            className="lg:hidden bg-[#0e2447] border-t border-white/10 overflow-hidden"
           >
-            <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-barlow text-lg tracking-widest text-white hover:text-acento transition-colors py-2 border-b border-white/5"
-                >
-                  {link.name}
-                </Link>
-              ))}
+            <div className="container mx-auto px-4 py-4 flex flex-col space-y-3">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`font-heading text-base font-semibold tracking-wider transition-colors py-2.5 border-b border-white/5 ${
+                      isActive ? 'text-[#9ad6de] font-bold' : 'text-white hover:text-[#9ad6de]'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
             </div>
           </motion.div>
         )}

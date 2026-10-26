@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 export default function PlanSection() {
   return (
-    <section className="bg-light relative overflow-hidden flex flex-col lg:flex-row items-center border-b border-primario/10 lg:min-h-[85vh]">
+    <section className="bg-[#f4f9fa] relative overflow-hidden flex flex-col lg:flex-row items-center border-b border-[#dce7ea] lg:min-h-[85vh]">
       {/* Texto - Ocupa la mitad izquierda en desktop */}
       <div className="w-full lg:w-1/2 p-8 lg:p-20 z-10 flex flex-col justify-center">
         <motion.div
@@ -15,20 +15,20 @@ export default function PlanSection() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <span className="text-acento font-barlow font-bold tracking-[0.25em] text-sm uppercase block mb-4">
+          <span className="text-[#2a7580] font-heading font-bold tracking-[0.25em] text-sm uppercase block mb-4">
             El mapa de ruta
           </span>
-          <h2 className="font-barlow text-5xl lg:text-7xl font-extrabold text-primario tracking-tighter mb-6 leading-tight">
+          <h2 className="font-display text-5xl lg:text-7xl font-extrabold text-[#215196] tracking-tight mb-6 leading-tight">
             CONOCE NUESTRO <br />
-            <span className="text-solar">PLAN 2026</span>
+            <span className="text-[#479ea9]">PLAN 2026</span>
           </h2>
-          <p className="font-dmsans text-lg lg:text-xl text-primario/70 mb-10 leading-relaxed max-w-lg">
+          <p className="font-body text-lg lg:text-xl text-[#56657a] mb-10 leading-relaxed max-w-lg">
             No nacimos de promesas vacías, nacimos de la planificación. Descubre el documento oficial con las estrategias de energía limpia, movilidad inteligente y desarrollo económico para Loja.
           </p>
           <Link
             href="/documentos/Plan-2026-Jorge-Reyes.pdf"
             target="_blank"
-            className="inline-flex items-center justify-center bg-primario text-white font-barlow font-bold tracking-widest text-sm px-8 py-5 transition-all hover:bg-acento hover:text-primario hover:scale-105 group"
+            className="inline-flex items-center justify-center bg-[#479ea9] text-white font-heading font-bold tracking-widest text-sm px-8 py-5 rounded-sm shadow-md transition-all hover:bg-[#2a7580] hover:scale-105 group"
           >
             DESCARGAR PROPUESTA
             <svg className="w-5 h-5 ml-3 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,12 +55,12 @@ export default function PlanSection() {
             priority
           />
           {/* Gradiente sutil para transición suave con el texto en desktop */}
-          <div className="hidden lg:block absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-light to-transparent" />
+          <div className="hidden lg:block absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-[#f4f9fa] to-transparent" />
         </motion.div>
       </div>
       
       {/* Background decor (visible en el lado del texto) */}
-      <div className="absolute -top-40 -left-40 w-96 h-96 bg-solar/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-40 -left-40 w-96 h-96 bg-[#479ea9]/10 rounded-full blur-3xl pointer-events-none" />
     </section>
   );
 }

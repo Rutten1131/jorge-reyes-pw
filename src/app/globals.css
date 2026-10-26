@@ -2,35 +2,156 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-primario: #1B3A4B;
-  --color-acento: #4EC8C8;
-  --color-solar: #5A9E6F;
-  --color-gold: #E8C547;
-  --color-light: #F5F5F0;
+  /* --- Paleta oficial Juntos Renacemos --- */
+  --color-primary: #479ea9;
+  --color-primary-light: #7bbcc5;
+  --color-primary-dark: #2a7580;
+  --color-primary-soft: #e6f3f5;
 
-  --color-background: var(--color-light);
-  --color-foreground: #1A1A2E;
+  --color-secondary: #215196;
+  --color-secondary-light: #3a6fb8;
+  --color-secondary-dark: #163768;
+  --color-navy: #0e2447;
+
+  --color-accent: #9ad6de;
+  --color-accent-dark: #6bbcc7;
+
+  --color-bg: #f4f9fa;
+  --color-surface: #ffffff;
+  --color-border: #dce7ea;
+  --color-text: #16233a;
+  --color-muted: #56657a;
+  --color-dark: #0c1c38;
+
+  --color-success: #1f9d55;
+  --color-warning: #f59e0b;
+  --color-danger: #d64545;
+
+  /* Aliases de compatibilidad con código existente */
+  --color-primario: #0e2447; /* Marino para bloques oscuros principales */
+  --color-acento: #9ad6de;   /* Aqua oficial */
+  --color-solar: #479ea9;    /* Teal principal */
+  --color-gold: #f59e0b;     /* Acento advertencia/dorado funcional */
+  --color-light: #f4f9fa;    /* Fondo general */
+
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-text);
   
-  --font-barlow: var(--font-barlow-condensed);
-  --font-dmsans: var(--font-dm-sans);
-  --font-lora: var(--font-lora);
+  --font-display: var(--font-display-oswald), "Aceh Black", "Arial Black", sans-serif;
+  --font-slogan: var(--font-slogan-montserrat), "Futuristic Stylish", sans-serif;
+  --font-heading: var(--font-heading-montserrat), sans-serif;
+  --font-body: var(--font-body-poppins), sans-serif;
+  --font-barlow: var(--font-display-oswald), sans-serif;
+  --font-dmsans: var(--font-body-poppins), sans-serif;
+  --font-lora: var(--font-slogan-montserrat), serif;
 }
 
 :root {
-  --background: #F5F5F0;
-  --foreground: #1A1A2E;
-}
+  --color-primary: #479ea9;
+  --color-primary-light: #7bbcc5;
+  --color-primary-dark: #2a7580;
+  --color-primary-soft: #e6f3f5;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1B3A4B;
-    --foreground: #F5F5F0;
-  }
+  --color-secondary: #215196;
+  --color-secondary-light: #3a6fb8;
+  --color-secondary-dark: #163768;
+  --color-navy: #0e2447;
+
+  --color-accent: #9ad6de;
+  --color-accent-dark: #6bbcc7;
+
+  --color-white: #ffffff;
+  --color-bg: #f4f9fa;
+  --color-surface: #ffffff;
+  --color-border: #dce7ea;
+  --color-text: #16233a;
+  --color-muted: #56657a;
+  --color-dark: #0c1c38;
+
+  --gradient-primary: linear-gradient(135deg, #163768 0%, #215196 55%, #479ea9 135%);
+  --gradient-accent: linear-gradient(135deg, #479ea9 0%, #9ad6de 100%);
+  --gradient-hero: linear-gradient(160deg, rgba(14,36,71,.96) 0%, rgba(33,81,150,.92) 60%, rgba(71,158,169,.88) 140%);
+
+  --background: #f4f9fa;
+  --foreground: #16233a;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-dmsans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
   @apply antialiased;
+}
+
+/* Clases de utilidad y componentes según la guía oficial */
+.bg-gradient-hero {
+  background: var(--gradient-hero);
+}
+
+.bg-gradient-brand {
+  background: var(--gradient-primary);
+}
+
+.bg-gradient-accent {
+  background: var(--gradient-accent);
+}
+
+/* Botones según la hoja Componentes del Excel */
+.btn-brand-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+.btn-brand-primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.btn-brand-secondary {
+  background-color: var(--color-secondary);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+.btn-brand-secondary:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.btn-brand-accent {
+  background-color: var(--color-accent);
+  color: var(--color-navy);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+.btn-brand-accent:hover {
+  background-color: var(--color-accent-dark);
+}
+
+.btn-brand-outline {
+  background-color: transparent;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+.btn-brand-outline:hover {
+  background-color: var(--color-secondary);
+  color: #ffffff;
+}
+
+.btn-brand-outline-light {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+.btn-brand-outline-light:hover {
+  background-color: #ffffff;
+  color: var(--color-secondary);
 }

@@ -62,13 +62,13 @@ export default function ShortsSlider() {
   };
 
   return (
-    <section className="bg-neutro py-24 lg:py-32 overflow-hidden relative">
+    <section className="bg-[#f4f9fa] py-24 lg:py-32 overflow-hidden relative border-t border-[#dce7ea]">
       <div className="container mx-auto px-4 text-center mb-16">
-        <span className="text-acento font-barlow tracking-widest uppercase text-sm mb-4 block">
+        <span className="text-[#2a7580] font-heading font-bold tracking-widest uppercase text-sm mb-4 block">
           LO QUE PASA EN LAS CALLES
         </span>
-        <h2 className="font-barlow text-4xl sm:text-5xl lg:text-7xl font-bold text-primario tracking-tighter">
-          CERCANÍA CON EL <span className="text-acento">PUEBLO</span>
+        <h2 className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-[#215196] tracking-tight">
+          CERCANÍA CON EL <span className="text-[#479ea9]">PUEBLO</span>
         </h2>
       </div>
 
@@ -87,7 +87,7 @@ export default function ShortsSlider() {
               onDragEnd={isCenter ? handleDragEnd : undefined}
             >
               <div 
-                className={`relative group w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 ${isCenter ? 'border-acento/50' : 'border-transparent'}`}
+                className={`relative group w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 ${isCenter ? 'border-[#9ad6de]' : 'border-transparent'}`}
                 onClick={() => isCenter && setPlayingIndex(i)}
               >
                 {/* Preview Image for the card */}
@@ -96,14 +96,14 @@ export default function ShortsSlider() {
                   alt={short.title}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-primario/40 group-hover:bg-primario/20 transition-colors pointer-events-none" />
+                <div className="absolute inset-0 bg-[#0e2447]/40 group-hover:bg-[#0e2447]/20 transition-colors pointer-events-none" />
                 
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-primario to-transparent pointer-events-none">
-                  <h4 className="text-white font-barlow text-xl font-bold tracking-wide">{short.title}</h4>
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#0e2447] to-transparent pointer-events-none">
+                  <h4 className="text-white font-heading text-xl font-bold tracking-wide">{short.title}</h4>
                 </div>
 
                 {isCenter && (
-                  <button className="absolute inset-0 m-auto w-16 h-16 bg-acento text-primario rounded-full flex items-center justify-center pl-1 shadow-lg hover:scale-110 transition-transform">
+                  <button className="absolute inset-0 m-auto w-16 h-16 bg-[#9ad6de] text-[#0e2447] rounded-full flex items-center justify-center pl-1 shadow-lg hover:scale-110 hover:bg-[#6bbcc7] transition-all">
                     <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                   </button>
                 )}
@@ -114,10 +114,10 @@ export default function ShortsSlider() {
 
         {/* Controles móviles */}
         <div className="absolute bottom-0 inset-x-0 w-full flex justify-center gap-6 mt-10 md:hidden pb-4">
-          <button onClick={handlePrev} className="bg-white/20 p-3 rounded-full text-primario backdrop-blur-sm border border-primario/10">
+          <button onClick={handlePrev} className="bg-white/80 p-3 rounded-full text-[#215196] shadow-md border border-[#dce7ea]">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           </button>
-          <button onClick={handleNext} className="bg-white/20 p-3 rounded-full text-primario backdrop-blur-sm border border-primario/10">
+          <button onClick={handleNext} className="bg-white/80 p-3 rounded-full text-[#215196] shadow-md border border-[#dce7ea]">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </button>
         </div>
@@ -130,12 +130,12 @@ export default function ShortsSlider() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-primario/95 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#0e2447]/95 backdrop-blur-sm p-4"
           >
             {/* Navegación Anterior */}
             <button 
               onClick={handlePrevVideo}
-              className="absolute left-4 md:left-10 text-white/50 hover:text-acento transition-colors z-50"
+              className="absolute left-4 md:left-10 text-white/70 hover:text-[#9ad6de] transition-colors z-50"
             >
               <svg className="w-12 h-12 md:w-16 md:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
             </button>

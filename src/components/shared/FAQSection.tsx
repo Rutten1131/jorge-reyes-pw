@@ -62,7 +62,7 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="bg-light py-20 lg:py-32 border-t border-primario/5">
+    <section className="bg-[#f4f9fa] py-20 lg:py-32 border-t border-[#dce7ea]">
       {/* Schema Injection */}
       <script
         type="application/ld+json"
@@ -71,13 +71,13 @@ export default function FAQSection() {
       
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-16">
-          <span className="text-acento font-barlow tracking-widest uppercase text-sm mb-4 block font-bold">
+          <span className="text-[#2a7580] font-heading tracking-widest uppercase text-sm mb-4 block font-bold">
             Respuestas Directas
           </span>
-          <h2 className="font-barlow text-4xl lg:text-5xl font-black text-primario tracking-tighter uppercase mb-6">
-            PREGUNTAS FRECUENTES <span className="text-acento">SOBRE LOJA 2026</span>
+          <h2 className="font-display text-4xl lg:text-5xl font-black text-[#215196] tracking-tight uppercase mb-6">
+            PREGUNTAS FRECUENTES <span className="text-[#479ea9]">SOBRE LOJA 2026</span>
           </h2>
-          <p className="text-primario/60 font-dmsans max-w-2xl mx-auto">
+          <p className="text-[#56657a] font-body max-w-2xl mx-auto">
             La transparencia empieza respondiendo de frente. Esto es lo que necesitas saber sobre Jorge Reyes, sus obras, su historial y su visión para el futuro de nuestra ciudad.
           </p>
         </div>
@@ -86,18 +86,18 @@ export default function FAQSection() {
           {faqs.map((faq, index) => (
             <div 
               key={index} 
-              className={`border rounded-sm overflow-hidden transition-colors ${
-                activeIndex === index ? 'border-acento bg-white shadow-md' : 'border-primario/10 bg-white/50'
+              className={`border rounded-sm overflow-hidden transition-all ${
+                activeIndex === index ? 'border-[#479ea9] bg-white shadow-md' : 'border-[#dce7ea] bg-white/80 hover:bg-white'
               }`}
             >
               <button
                 onClick={() => toggleAccordion(index)}
                 className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
               >
-                <h3 className="font-barlow text-xl lg:text-2xl font-bold text-primario pr-8">
+                <h3 className="font-heading text-xl lg:text-2xl font-bold text-[#215196] pr-8">
                   {faq.question}
                 </h3>
-                <span className={`transform transition-transform duration-300 flex-shrink-0 ${activeIndex === index ? 'rotate-180 text-acento' : 'text-primario/30'}`}>
+                <span className={`transform transition-transform duration-300 flex-shrink-0 ${activeIndex === index ? 'rotate-180 text-[#479ea9]' : 'text-[#56657a]'}`}>
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -112,17 +112,17 @@ export default function FAQSection() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="p-6 pt-0 text-primario/70 font-dmsans leading-relaxed border-t border-primario/5 mt-2">
-                      <p className="pt-4">{faq.answer}</p>
+                    <div className="p-6 pt-0 text-[#16233a] font-body leading-relaxed border-t border-[#dce7ea] mt-2">
+                      <p className="pt-4 text-[#56657a]">{faq.answer}</p>
                       
                       {faq.articleLink && (
-                        <div className="mt-6 border-l-2 border-acento pl-4 py-1">
-                          <p className="text-xs font-bold uppercase tracking-widest text-primario/40 mb-1">
+                        <div className="mt-6 border-l-2 border-[#479ea9] pl-4 py-1">
+                          <p className="text-xs font-bold uppercase tracking-widest text-[#2a7580] mb-1 font-heading">
                             {faq.articlePrefix || 'Profundizar'}
                           </p>
                           <a 
                             href={faq.articleLink} 
-                            className="text-acento font-bold hover:underline inline-flex items-center group"
+                            className="text-[#215196] hover:text-[#479ea9] font-heading font-bold hover:underline inline-flex items-center group transition-colors"
                           >
                             Ir a la propuesta detallada
                             <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

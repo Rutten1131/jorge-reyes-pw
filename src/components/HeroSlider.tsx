@@ -103,7 +103,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-primario h-[70vh] lg:h-[80vh]">
+    <section className="relative w-full overflow-hidden bg-[#0e2447] h-[70vh] lg:h-[80vh]">
 
       {/* SLIDES */}
       <AnimatePresence mode="sync">
@@ -122,9 +122,9 @@ export default function HeroSlider() {
             className="object-cover"
             priority
           />
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primario/90 via-primario/60 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-primario/80 via-transparent to-transparent" />
+          {/* Gradient overlay con el gradiente oficial */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0e2447]/95 via-[#0e2447]/75 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0e2447]/90 via-transparent to-transparent" />
         </motion.div>
       </AnimatePresence>
 
@@ -140,23 +140,23 @@ export default function HeroSlider() {
               exit="exit"
               className="max-w-2xl"
             >
-              <span className="text-acento font-barlow font-bold tracking-[0.25em] text-sm uppercase block mb-6">
+              <span className="text-[#9ad6de] font-heading font-bold tracking-[0.25em] text-sm uppercase block mb-6">
                 {slide.tag}
               </span>
-              <h2 className="font-barlow font-extrabold text-white leading-none tracking-tighter mb-4"
+              <h2 className="font-display font-extrabold text-white leading-none tracking-tight mb-4"
                 style={{ fontSize: 'clamp(3rem, 15vw, 8rem)', lineHeight: 0.9 }}
               >
                 {slide.stat}
               </h2>
-              <p className="font-barlow font-bold text-acento text-xl lg:text-2xl tracking-widest uppercase mb-8">
+              <p className="font-heading font-bold text-[#9ad6de] text-xl lg:text-2xl tracking-wider uppercase mb-8">
                 {slide.unit}
               </p>
-              <p className="font-lora italic text-white/75 text-lg lg:text-xl leading-relaxed mb-10 max-w-lg">
+              <p className="font-slogan italic text-white/90 text-lg lg:text-xl leading-relaxed mb-10 max-w-lg">
                 "{slide.quote}"
               </p>
               <Link
                 href={slide.cta.href}
-                className="inline-block bg-acento text-primario font-barlow font-bold tracking-widest text-sm px-8 py-4 transition-all hover:scale-105 hover:bg-white"
+                className="inline-block bg-[#9ad6de] text-[#0e2447] font-heading font-bold tracking-widest text-sm px-8 py-4 rounded-sm shadow-xl transition-all hover:scale-105 hover:bg-[#6bbcc7]"
               >
                 {slide.cta.label}
               </Link>
@@ -170,7 +170,7 @@ export default function HeroSlider() {
         <button
           onClick={prev}
           aria-label="Slide anterior"
-          className="group w-12 h-12 border border-white/20 flex items-center justify-center text-white/50 hover:border-acento hover:text-acento transition-all duration-300"
+          className="group w-12 h-12 border border-white/20 flex items-center justify-center text-white/70 hover:border-[#9ad6de] hover:text-[#9ad6de] transition-all duration-300"
         >
           <svg className="w-5 h-5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 15l7-7 7 7" />
@@ -179,7 +179,7 @@ export default function HeroSlider() {
         <button
           onClick={next}
           aria-label="Siguiente slide"
-          className="group w-12 h-12 border border-white/20 flex items-center justify-center text-white/50 hover:border-acento hover:text-acento transition-all duration-300"
+          className="group w-12 h-12 border border-white/20 flex items-center justify-center text-white/70 hover:border-[#9ad6de] hover:text-[#9ad6de] transition-all duration-300"
         >
           <svg className="w-5 h-5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
@@ -199,7 +199,7 @@ export default function HeroSlider() {
           >
             {current === i && (
               <motion.span
-                className="absolute inset-0 bg-acento origin-left"
+                className="absolute inset-0 bg-[#9ad6de] origin-left"
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 5, ease: 'linear' }}
@@ -210,8 +210,8 @@ export default function HeroSlider() {
       </div>
 
       {/* SLIDE COUNTER */}
-      <div className="absolute z-30 bottom-8 right-6 lg:right-10 text-white/30 font-barlow text-sm tracking-widest">
-        <span className="text-acento">{String(current + 1).padStart(2, '0')}</span>
+      <div className="absolute z-30 bottom-8 right-6 lg:right-10 text-white/60 font-heading text-sm tracking-widest">
+        <span className="text-[#9ad6de] font-bold">{String(current + 1).padStart(2, '0')}</span>
         <span className="mx-1">/</span>
         {String(slides.length).padStart(2, '0')}
       </div>

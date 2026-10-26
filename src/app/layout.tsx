@@ -1,27 +1,26 @@
 import type { Metadata } from 'next';
-import { Barlow_Condensed, DM_Sans, Lora } from 'next/font/google';
+import { Montserrat, Poppins, Oswald } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ViviendaPopupModal from '@/components/ViviendaPopupModal';
 import './globals.css';
 
-const barlowCondensed = Barlow_Condensed({
+const oswald = Oswald({
   subsets: ['latin'],
-  weight: ['700', '800'],
-  variable: '--font-barlow-condensed',
+  weight: ['500', '600', '700'],
+  variable: '--font-display-oswald',
 });
 
-const dmSans = DM_Sans({
+const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-dm-sans',
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-heading-montserrat',
 });
 
-const lora = Lora({
+const poppins = Poppins({
   subsets: ['latin'],
-  style: ['italic'],
-  weight: ['400', '500'],
-  variable: '--font-lora',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-body-poppins',
 });
 
 export const metadata: Metadata = {
@@ -193,7 +192,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${barlowCondensed.variable} ${dmSans.variable} ${lora.variable}`}>
+    <html lang="es" className={`${oswald.variable} ${montserrat.variable} ${poppins.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -212,7 +211,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-light selection:bg-acento/30">
+      <body className="min-h-screen flex flex-col bg-bg text-text selection:bg-[#9ad6de] selection:text-[#0e2447]">
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
