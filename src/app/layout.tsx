@@ -95,9 +95,9 @@ const personSchema = {
   },
   telephone: '+593997755478',
   sameAs: [
-    'https://www.facebook.com/jorge.reyesjaramillo',
-    'https://www.tiktok.com/@jorge.reyes.jaramillo',
-    'https://www.instagram.com/reyesjaramillojorge/',
+    'https://www.facebook.com/JorgeReyesAlcalde',
+    'https://www.tiktok.com/@jorgereyesjaramillo',
+    'https://www.instagram.com/jorgereyesjaramillo/',
   ],
 };
 
@@ -159,9 +159,9 @@ const localBusinessSchema = {
     '@id': 'https://en.wikipedia.org/wiki/Loja,_Ecuador',
   },
   sameAs: [
-    'https://www.facebook.com/jorge.reyesjaramillo',
-    'https://www.tiktok.com/@jorge.reyes.jaramillo',
-    'https://www.instagram.com/reyesjaramillojorge/',
+    'https://www.facebook.com/JorgeReyesAlcalde',
+    'https://www.tiktok.com/@jorgereyesjaramillo',
+    'https://www.instagram.com/jorgereyesjaramillo/',
     'https://www.facebook.com/mass115loja',
     'https://www.instagram.com/mass115loja',
   ],
@@ -241,9 +241,9 @@ export default function RootLayout({
           <p>Dirección de campaña: Sucre y Rocafuerte Esq., Loja, Ecuador</p>
           <h2>Redes sociales</h2>
           <ul>
-            <li>Facebook: facebook.com/jorge.reyesjaramillo</li>
-            <li>Instagram: instagram.com/reyesjaramillojorge</li>
-            <li>TikTok: tiktok.com/@jorge.reyes.jaramillo</li>
+            <li>Facebook: facebook.com/JorgeReyesAlcalde</li>
+            <li>Instagram: instagram.com/jorgereyesjaramillo</li>
+            <li>TikTok: tiktok.com/@jorgereyesjaramillo</li>
           </ul>
         </div>
       </body>
