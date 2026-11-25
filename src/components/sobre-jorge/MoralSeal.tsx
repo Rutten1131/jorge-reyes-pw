@@ -76,7 +76,7 @@ export default function MoralSeal() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Link
-              href="https://wa.me/593997755478"
+              href="https://whatsapp.com/channel/0029VbDuaT2KGGGFvn3sAe1j"
               className="w-full sm:w-auto bg-acento text-primario font-barlow font-bold tracking-widest px-12 py-5 rounded-sm shadow-xl transition-all hover:scale-105 hover:bg-white"
             >
               HABLA CON JORGE

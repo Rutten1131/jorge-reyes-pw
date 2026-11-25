@@ -107,7 +107,7 @@ export default function Home() {
                 Imagina luz que no te cuesta y conectividad sin factura. Loja deja de ser una ciudad estancada para convertirse en un motor tecnológico.
               </p>
               <Link
-                href="https://wa.me/593997755478"
+                href="https://whatsapp.com/channel/0029VbDuaT2KGGGFvn3sAe1j"
                 className="inline-block bg-[#479ea9] text-white font-heading font-bold tracking-widest px-8 py-4 rounded-sm shadow-lg transition-transform hover:scale-105 hover:bg-[#2a7580]"
               >
                 QUIERO MI CASA SOLAR
@@ -164,7 +164,7 @@ export default function Home() {
              </p>
              <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                 <Link
-                  href="https://wa.me/593997755478"
+                  href="https://whatsapp.com/channel/0029VbDuaT2KGGGFvn3sAe1j"
                   className="w-full sm:w-auto bg-[#479ea9] text-white font-heading font-bold tracking-widest px-12 py-5 rounded-sm shadow-xl transition-all hover:scale-105 hover:bg-[#2a7580]"
                 >
                   HABLA CON JORGE

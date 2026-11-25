@@ -110,7 +110,8 @@ export default function ViviendaPopupModal() {
       setTimeout(() => {
         setSuccessMsg('');
         setIsOpen(false);
-      }, 3000);
+        window.location.href = 'https://whatsapp.com/channel/0029VbDuaT2KGGGFvn3sAe1j';
+      }, 1000);
     } catch (err: any) {
       setErrorMsg(err.message || 'Error de conexión');
     } finally {

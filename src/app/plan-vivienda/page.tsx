@@ -107,7 +107,7 @@ export default function PlanViviendaPage() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
-                href="https://wa.me/593997755478?text=Hola%20deseo%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20Plan%20de%20Vivienda%20Padre%20Victor%20Manuel%20Reyes"
+                href="https://whatsapp.com/channel/0029VbDuaT2KGGGFvn3sAe1j"
                 target="_blank"
                 className="w-full sm:w-auto bg-[#479ea9] hover:bg-[#2a7580] text-white font-heading font-bold text-xs sm:text-sm px-6 py-3.5 rounded-sm shadow-xl transition-all hover:scale-105"
               >
@@ -362,7 +362,7 @@ export default function PlanViviendaPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="https://wa.me/593997755478?text=Hola%20Dr.%20Jorge%20Reyes,%20deseo%20inscribirme%20y%20conocer%20los%20requisitos%20para%20la%20Asociaci%C3%B3n%20de%20Vivienda"
+              href="https://whatsapp.com/channel/0029VbDuaT2KGGGFvn3sAe1j"
               target="_blank"
               className="w-full sm:w-auto bg-[#479ea9] hover:bg-[#2a7580] text-white font-heading font-bold text-base px-10 py-5 rounded-sm shadow-xl transition-all hover:scale-105"
             >

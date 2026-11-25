@@ -59,7 +59,7 @@ export default function Footer() {
               FINANCIA LA REBELIÓN DE LOJA
             </Link>
             <Link
-              href="https://wa.me/593997755478"
+              href="https://whatsapp.com/channel/0029VbDuaT2KGGGFvn3sAe1j"
               target="_blank"
               className="bg-[#9ad6de] text-[#0e2447] font-heading font-bold py-3.5 px-6 rounded-sm text-center transition-transform hover:scale-105 shadow-lg"
             >

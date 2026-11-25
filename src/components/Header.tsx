@@ -90,7 +90,7 @@ export default function Header() {
         {/* Action Button & Toggle */}
         <div className="flex items-center space-x-4">
           <Link
-            href="https://wa.me/593997755478"
+            href="https://whatsapp.com/channel/0029VbDuaT2KGGGFvn3sAe1j"
             target="_blank"
             className="font-heading text-sm font-bold tracking-wider px-5 py-2.5 rounded-sm transition-all duration-300 shadow-md bg-[#479ea9] text-white hover:bg-[#2a7580] hover:scale-105"
           >
